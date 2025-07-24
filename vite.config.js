@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    include: ['lucide-react'],
+    exclude: []
   },
   server: {
     fs: {
@@ -14,13 +15,17 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: [],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           icons: ['lucide-react']
         }
       }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': '/src'
     }
   }
 });

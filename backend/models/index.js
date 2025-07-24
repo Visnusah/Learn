@@ -41,10 +41,17 @@ Enrollment.belongsTo(Course, {
 // Sync database
 const syncDatabase = async () => {
   try {
-    await sequelize.sync({ alter: true });
+    // Use force: false in production, alter: true for development
+    const options = process.env.NODE_ENV === 'production' 
+      ? { alter: false } 
+      : { alter: true, force: false };
+    
+    await sequelize.sync(options);
     console.log('✅ Database synchronized successfully.');
+    console.log(`📊 Models: User, Course, Enrollment`);
   } catch (error) {
-    console.error('❌ Error synchronizing database:', error);
+    console.error('❌ Error synchronizing database:', error.message);
+    throw error;
   }
 };
 
@@ -53,5 +60,6 @@ module.exports = {
   User,
   Course,
   Enrollment,
-  syncDatabase
+  syncDatabase,
+  testConnection: require('../config/database').testConnection
 };

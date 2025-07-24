@@ -1,43 +1,34 @@
 // Course content data and utility functions
 
-export interface LessonContent {
-  id: string;
-  title: string;
-  description: string;
-  type: 'video' | 'text' | 'quiz';
-  duration: string;
-  content?: string;
-  videoId?: string;
-  quiz?: {
-    questions: Array<{
-      id: string;
-      question: string;
-      options: string[];
-      correctAnswer: number;
-      explanation: string;
-    }>;
-  };
-  resources?: Array<{
-    name: string;
-    type: 'pdf' | 'link' | 'file';
-    url: string;
-  }>;
-}
+/**
+ * @typedef {Object} LessonContent
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {'video'|'text'|'quiz'} type
+ * @property {string} duration
+ * @property {string} [content]
+ * @property {string} [videoId]
+ * @property {Object} [quiz]
+ * @property {Array} [resources]
+ */
 
-export interface CourseSection {
-  id: string;
-  title: string;
-  description: string;
-  lessons: LessonContent[];
-}
+/**
+ * @typedef {Object} CourseSection
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {LessonContent[]} lessons
+ */
 
-export interface CourseContent {
-  courseId: string;
-  sections: CourseSection[];
-}
+/**
+ * @typedef {Object} CourseContent
+ * @property {string} courseId
+ * @property {CourseSection[]} sections
+ */
 
 // Mock course content data
-const courseContentData: CourseContent[] = [
+const courseContentData = [
   {
     courseId: '1',
     sections: [
@@ -612,11 +603,11 @@ export default App;</code></pre>
 ];
 
 // Utility functions
-export const getCourseContent = (courseId: string): CourseContent | undefined => {
+export const getCourseContent = (courseId) => {
   return courseContentData.find(content => content.courseId === courseId);
 };
 
-export const getLesson = (courseId: string, lessonId: string): LessonContent | undefined => {
+export const getLesson = (courseId, lessonId) => {
   const courseContent = getCourseContent(courseId);
   if (!courseContent) return undefined;
   
@@ -628,12 +619,12 @@ export const getLesson = (courseId: string, lessonId: string): LessonContent | u
   return undefined;
 };
 
-export const updateLessonProgress = (courseId: string, lessonId: string, completed: boolean): void => {
+export const updateLessonProgress = (courseId, lessonId, completed) => {
   const key = `lesson_progress_${courseId}_${lessonId}`;
   localStorage.setItem(key, completed.toString());
 };
 
-export const getLessonProgress = (courseId: string, lessonId: string): boolean => {
+export const getLessonProgress = (courseId, lessonId) => {
   const key = `lesson_progress_${courseId}_${lessonId}`;
   return localStorage.getItem(key) === 'true';
 };

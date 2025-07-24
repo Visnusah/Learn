@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star, Users, Clock, Play, BookOpen, Award, CheckCircle } from 'lucide-react';
-import { mockCourses } from '../data/mockData';
-import { getCourseContent } from '../data/courseContent';
+import { mockCourses } from '../data/mockData.js';
+import { getCourseContent } from '../data/courseContent.js';
 
 const CourseDetailPage = () => {
   const { id } = useParams();

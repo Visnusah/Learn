@@ -26,6 +26,16 @@ export const AuthProvider = ({ children }) => {
     setUser(mockUser);
   };
 
+  const register = async (userData) => {
+    // Mock registration - in real app, this would make API call
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Registration successful:', userData);
+        resolve({ success: true });
+      }, 1000);
+    });
+  };
+
   const logout = () => {
     setUser(null);
   };
@@ -33,6 +43,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     login,
+    register,
     logout,
     isAuthenticated: user !== null
   };

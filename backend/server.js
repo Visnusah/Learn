@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const { testConnection, syncDatabase } = require('./models');
+const { syncDatabase, testConnection } = require('./models');
 const authRoutes = require('./routes/auth');
 
 const app = express();
@@ -45,7 +45,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found'

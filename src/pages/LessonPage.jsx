@@ -21,8 +21,8 @@ import {
   Users,
   ExternalLink
 } from 'lucide-react';
-import { getCourseContent, getLesson, updateLessonProgress, getLessonProgress } from '../data/courseContent';
-import { mockCourses } from '../data/mockData';
+import { getCourseContent, getLesson, updateLessonProgress, getLessonProgress } from '../data/courseContent.js';
+import { mockCourses } from '../data/mockData.js';
 
 const LessonPage = () => {
   const { courseId, lessonId } = useParams();
