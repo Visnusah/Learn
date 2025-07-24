@@ -12,6 +12,8 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import EmailVerificationPage from './pages/EmailVerificationPage';
+import ResendVerificationPage from './pages/ResendVerificationPage';
 import StudentDashboard from './pages/student/StudentDashboard';
 import StudentCourses from './pages/student/StudentCourses';
 import LearningInterface from './pages/student/LearningInterface';
@@ -44,6 +46,8 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/verify-email" element={<EmailVerificationPage />} />
+              <Route path="/resend-verification" element={<ResendVerificationPage />} />
               <Route path="/profile" element={<ProfilePage />} />
 
               {/* Student Routes */}

@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, GraduationCap } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const LoginPage = () => {
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('student');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // Check if user just verified their email
+  const isVerified = searchParams.get('verified') === 'true';
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setError('');
 
     if (!email || !password) {
       setError('Please fill in all fields');
+      setIsLoading(false);
       return;
     }
 
@@ -38,6 +45,8 @@ const LoginPage = () => {
       }
     } catch (err) {
       setError('Invalid credentials');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,10 +69,26 @@ const LoginPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {isVerified && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md">
+              <p className="text-green-800 text-sm">
+                ✅ Your email has been verified successfully! You can now log in to your account.
+              </p>
+            </div>
+          )}
+          
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
-                {error}
+                <p>{error}</p>
+                {error.includes('verify') && (
+                  <Link 
+                    to="/resend-verification" 
+                    className="text-red-700 underline hover:text-red-800 mt-2 inline-block"
+                  >
+                    Resend verification email
+                  </Link>
+                )}
               </div>
             )}
 
@@ -155,9 +180,10 @@ const LoginPage = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                disabled={isLoading}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Sign in
+                {isLoading ? 'Signing in...' : 'Sign in'}
               </button>
             </div>
           </form>

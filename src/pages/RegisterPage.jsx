@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, GraduationCap } from 'lucide-react';
+import { Eye, EyeOff, GraduationCap, Mail } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const RegisterPage = () => {
@@ -14,6 +14,8 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -53,24 +55,19 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrors([]);
     
     if (validateForm()) {
       try {
+        // Simulate registration success
+        setIsSuccess(true);
         login(formData.email, formData.password, formData.role);
-        // Navigate based on role
-        switch (formData.role) {
-          case 'student':
-            navigate('/student/dashboard');
-            break;
-          case 'teacher':
-            navigate('/teacher/dashboard');
-            break;
-          default:
-            navigate('/');
-        }
       } catch (err) {
         setErrors(['Registration failed. Please try again.']);
       }
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -93,7 +90,8 @@ const RegisterPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          {!isSuccess ? (
+            <form className="space-y-6" onSubmit={handleSubmit}>
             {errors.length > 0 && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
                 <ul className="text-sm space-y-1">
@@ -241,16 +239,51 @@ const RegisterPage = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                disabled={isLoading}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Create Account
+                {isLoading ? 'Creating Account...' : 'Create Account'}
               </button>
             </div>
           </form>
+          ) : (
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Mail className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Registration Successful!
+              </h3>
+              <p className="text-gray-600 mb-6">
+                We've sent a verification email to <strong>{formData.email}</strong>. 
+                Please check your inbox and click the verification link to activate your account.
+              </p>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <p className="text-blue-800 text-sm">
+                  📧 Don't forget to check your spam folder if you don't see the email in your inbox.
+                </p>
+              </div>
         </div>
       </div>
     </div>
   );
 };
 
+              <div className="flex flex-col space-y-3">
+                <Link
+                  to="/login"
+                  className="btn-primary"
+                >
+                  Go to Login
+                </Link>
+                <Link
+                  to="/resend-verification"
+                  className="btn-secondary"
+                >
+                  Resend Verification Email
+                </Link>
+              </div>
+            </div>
+          )}
 export default RegisterPage;
