@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Users, BookOpen, Trophy, ArrowRight, Play, CheckCircle, TrendingUp, Clock, Award } from 'lucide-react';
-import { mockCourses, categories, testimonials, instructors } from '../data/mockData';
+import { mockCourses, categories, testimonials, instructors } from '../data/mockData.js';
 
 const HomePage = () => {
   const featuredCourses = mockCourses.filter(course => course.isFeatured);

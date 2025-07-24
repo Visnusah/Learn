@@ -19,32 +19,7 @@
  * @property {boolean} [hasDetailedContent]
  */
 
-export interface Course {
-  id: string;
-  title: string;
-  description: string;
-  instructor: string;
-  instructorAvatar: string;
-  category: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: string;
-  rating: number;
-  studentsCount: number;
-  image: string;
-  price: number;
-  curriculum: Array<{
-    id: string;
-    title: string;
-    duration: string;
-    isCompleted?: boolean;
-  }>;
-  requirements: string[];
-  whatYouLearn: string[];
-  isFeatured?: boolean;
-  hasDetailedContent?: boolean;
-}
-
-export const mockCourses: Course[] = [
+export const mockCourses = [
   {
     id: '1',
     title: 'Complete Web Development Bootcamp',

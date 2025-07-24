@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, Star, Users, Clock, ChevronDown } from 'lucide-react';
-import { mockCourses, categories } from '../data/mockData';
+import { mockCourses, categories } from '../data/mockData.js';
 
 const CoursesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
