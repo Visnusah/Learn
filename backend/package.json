@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "setup-db": "node setup-database.js",
-    "db:reset": "node setup-database.js",
+    "setup-postgres": "node setup-postgres.js",
+    "migrate": "node migrate.js",
     "db:seed": "node seeders.js",
-    "db:setup": "npm run setup-db && npm run db:seed",
+    "db:setup": "npm run setup-postgres && npm run migrate && npm run db:seed",
+    "db:reset": "npm run setup-postgres && npm run migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

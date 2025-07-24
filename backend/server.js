@@ -4,7 +4,8 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const { syncDatabase, testConnection } = require('./models');
+const { testConnection } = require('./models');
+const { runMigrations } = require('./migrate');
 const authRoutes = require('./routes/auth');
 
 const app = express();
@@ -65,16 +66,27 @@ app.use((error, req, res, next) => {
 // Start server
 const startServer = async () => {
   try {
+    // Test database connection first
     await testConnection();
-    await syncDatabase();
+    
+    // Run migrations to ensure tables exist
+    await runMigrations();
     
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
       console.log(`🔗 API URL: http://localhost:${PORT}/api`);
+      console.log(`📊 Database: ${process.env.DB_DIALECT || 'postgres'}`);
     });
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
+    console.error('❌ Failed to start server:', error.message);
+    
+    // Provide helpful error messages
+    if (error.code === 'ECONNREFUSED') {
+      console.log('\n💡 Database connection failed. Starting with limited functionality...');
+      console.log('   Some features may not work until database is connected.');
+    }
+    
     process.exit(1);
   }
 };
