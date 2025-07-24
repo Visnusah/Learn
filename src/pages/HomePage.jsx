@@ -23,10 +23,8 @@ const HomePage = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center slide-in-right">
               <Link to="/courses" className="btn-primary bg-white text-blue-600 hover:bg-blue-50 shadow-2xl">
                 Explore Courses
-                <ArrowRight className="ml-3 h-5 w-5" />
               </Link>
               <button className="btn-secondary border-white text-white hover:bg-white hover:text-blue-600">
-                <Play className="mr-3 h-5 w-5" />
                 Watch Demo
               </button>
             </div>
@@ -246,7 +244,6 @@ const HomePage = () => {
             </p>
             <Link to="/register" className="btn-primary bg-white text-blue-600 hover:bg-blue-50 shadow-2xl text-lg px-12 py-5">
               Get Started for Free
-              <ArrowRight className="ml-3 h-6 w-6" />
             </Link>
           </div>
         </div>

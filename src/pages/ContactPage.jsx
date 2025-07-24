@@ -35,8 +35,8 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: '+1 (555) 123-4567',
-      description: 'Mon-Fri from 8am to 5pm'
+      details: '+977 9898989898',
+      description: 'Sun-Fri from 8am to 5pm'
     },
     {
       icon: MapPin,
@@ -78,10 +78,10 @@ const ContactPage = () => {
       {/* Hero Section */}
       <section className="gradient-bg py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">
             Get in Touch
           </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+          <p className="text-xl text-black/90 max-w-3xl mx-auto">
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
         </div>
@@ -225,7 +225,7 @@ const ContactPage = () => {
                 <div className="text-center">
                   <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
                   <p className="text-gray-600">Interactive map would be here</p>
-                  <p className="text-sm text-gray-500">123 Learning St, Education City</p>
+                  <p className="text-sm text-gray-500">123 Learning St, Kathmandu</p>
                 </div>
               </div>
             </div>

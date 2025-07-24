@@ -35,10 +35,10 @@ const AboutPage = () => {
       {/* Hero Section */}
       <section className="gradient-bg py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">
             About LearnFree
           </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+          <p className="text-xl text-black/90 max-w-3xl mx-auto">
             We believe that quality education should be accessible to everyone, everywhere. 
             Our mission is to democratize learning and empower individuals to achieve their goals.
           </p>
